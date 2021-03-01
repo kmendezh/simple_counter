@@ -9,7 +9,18 @@ import "bootstrap";
 import "../styles/index.scss";
 
 //import your own components
-import { Home } from "./component/home.js";
+import { SecondsCounter } from "./component/counter.js";
+import { updateTime } from "./component/counter.js";
+import { storeIntervalID } from "./component/toolbar.js";
 
 //render your react application
-ReactDOM.render(<Home />, document.querySelector("#app"));
+window.onload = function() {
+	let counterDisplay = setInterval(function() {
+		let seconds = updateTime();
+		ReactDOM.render(
+			<SecondsCounter time={seconds} />,
+			document.querySelector("#app")
+		);
+	}, 1000);
+	storeIntervalID(counterDisplay);
+};
